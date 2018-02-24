@@ -205,7 +205,7 @@ head(listings_sub, n=10)
 ```
 
 
-###Data Cleaning of variables
+### Data Cleaning of variables
 
 
 **Checking for null values**
@@ -823,7 +823,7 @@ single.affordable %>%
 
 
 
-## Summary {.tabset .tabset-fade}
+## Summary 
 
 
 This analysis is mainly to figure out the most affordable and listed neighbourhoods in the city of Rome.
