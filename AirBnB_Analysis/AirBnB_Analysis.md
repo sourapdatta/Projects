@@ -2,27 +2,14 @@
 Soura Pratim Datta  
 3rd December, 2017  
 
-<style>
-pre {
-  white-space: pre !important;
-  overflow-y: scroll !important;
-}
-</style>
 
 > **_"Every one soon or late comes round by Rome."_** - _Robert Browning_
 
 [Rome](https://en.wikipedia.org/wiki/Rome) has beckoned travelers from afar for quite a few decades now. If Italy represents romance, Rome stands for intimacy. Intimacy between its glorious past and urban present. Intimacy between its spellbinding art and inspiring culture.   There is always more to Rome, and no matter how many trips you take, there will always be more to Rome. Needless to say that Rome receives millions of tourists each year. Rome is the 11th most visited city in the world and 3rd most visited in Europe.
 
-&nbsp;
-&nbsp;
 
 
-&nbsp;
-&nbsp;
-
-# {.tabset .tabset-fade}
-
-## Introduction {.tabset .tabset-fade}
+## Introduction
 
 ### Problem Statement
 
@@ -33,10 +20,6 @@ The purpose of this project is to perform exploratory analysis on the AirBnB ren
  
 _After all, who doesn't want to travel the world with minimum cost, if not for free?_
 
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
 
 ### Brief Overview
 
@@ -46,43 +29,32 @@ Compiled till _8thMay, 2017_, the following Airbnb activity is included in this 
 
  * **Listings** - Detailed Listings Data for Rome, including full descriptions and average review score.
 
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
  
 ### Approach
 
 R will be used to perform data analysis and visualization to explore and identify the most affordable neighbourhoods to stay for a solo or family trip. This will be done by categorizing them based on the variables.
 
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
 
 ### What's in it for you? 
 
 If you are a traveler or planning your next vacation to this exotic city, it will help you find the best neighborhoods to stay. If not, it might just inspire you to pack your bags! <br />
 
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
 
-## Packages required {.tabset .tabset-fade}
+
+## Packages required 
 
 To perform the analysis to the best of my abilities, I will be using the following R packages:
 
- * [tidyverse](https://cran.r-project.org/web/packages/tidyverse/index.html) - For easy installation of packages and for data manipulation.
- * [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html) - A fast, consistent tool for working with data frame like objects, both in memory and out of memory. 
- * [stringr](https://cran.r-project.org/web/packages/stringr/index.html) - Simple, Consistent Wrappers for Common String Operations.
- * [knitr](https://cran.r-project.org/web/packages/knitr/index.html) - Provides a general-purpose tool for dynamic report generation in R.
- * [ggmap](https://cran.r-project.org/web/packages/ggmap/index.html) - A collection of functions to visualize spatial data and models on top of static maps from various online sources
- * [DT](https://cran.r-project.org/web/packages/DT/index.html) - Data objects in R can be rendered as HTML tables
- *[plotly](https://cran.r-project.org/web/packages/plotly/index.html) - Easily translate 'ggplot2' graphs to an interactive web-based version
- *[gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html) - Provides a number of user-level functions to work with "grid" graphics, notably to arrange multiple grid-based plots on a page, and draw tables.
+* [tidyverse](https://cran.r-project.org/web/packages/tidyverse/index.html) - For easy installation of packages and for data manipulation.
+* [dplyr](https://cran.r-project.org/web/packages/dplyr/index.html) - A fast, consistent tool for working with data frame like objects, both in memory and out of memory. 
+* [stringr](https://cran.r-project.org/web/packages/stringr/index.html) - Simple, Consistent Wrappers for Common String Operations.
+* [knitr](https://cran.r-project.org/web/packages/knitr/index.html) - Provides a general-purpose tool for dynamic report generation in R.
+* [ggmap](https://cran.r-project.org/web/packages/ggmap/index.html) - A collection of functions to visualize spatial data and models on top of static maps from various online sources
+* [DT](https://cran.r-project.org/web/packages/DT/index.html) - Data objects in R can be rendered as HTML tables
+* [plotly](https://cran.r-project.org/web/packages/plotly/index.html) - Easily translate 'ggplot2' graphs to an interactive web-based version
+* [gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html) - Provides a number of user-level functions to work with "grid" graphics, notably to arrange multiple grid-based plots on a page, and draw tables.
  
-&nbsp;
+
 
 
 ```r
@@ -97,12 +69,8 @@ library(gridExtra)
 ```
 
 
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
 
-## Data Cleaning and Preparation {.tabset .tabset-fade}
+## Data Cleaning and Preparation 
 
 ### Background of data 
 
@@ -122,10 +90,6 @@ Link to the data is available [here](http://insideairbnb.com/get-the-data.html)
   listings <- read.csv("D:/Data/AirBnB/AirBnb_listings.csv", na.strings=c(""," ","NA"))
 ```
 
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
 
 ### First look of the data
 
@@ -136,9 +100,8 @@ Link to the data is available [here](http://insideairbnb.com/get-the-data.html)
 listings_dim <- dim(listings)
 ```
 
- * Listings has 25275 rows and 95 columns.
+* Listings has 25275 rows and 95 columns.
  
-&nbsp;
 
 **Column names of the datasets**
 
@@ -198,9 +161,7 @@ names(listings)
 ## [95] "reviews_per_month"
 ```
 
-&nbsp;
-
-** Taking a subset of the data for easier analysis**
+**Taking a subset of the data for easier analysis**
 
 At the first glance of the dataset, we've seen that it contains many irrelevant and redundant columns that we won't want to use in our analysis. Undoubtedly columns such as "host picture url" and "host name" will not help us in our analysis. Thus, subsetting the data set with select columns for ease of analysis.
 
@@ -211,17 +172,37 @@ listings_sub <- listings %>%
   select(latitude, longitude,neighbourhood_cleansed, price,accommodates,room_type, property_type, bed_type)
 ```
 
-** A look at the first few rows of the data set**
+**A look at the first few rows of the data set**
 
 
 ```r
-datatable(head(listings_sub, n=10))
+head(listings_sub, n=10)
 ```
 
-<!--html_preserve--><div id="htmlwidget-d3762e1279fc20481201" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d3762e1279fc20481201">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],[41.9210364232118,41.8913197415253,41.9039686735559,41.8909095031124,41.9037786427076,41.9136997507149,41.9035951477092,41.9097079277114,41.8959825284606,41.8890551210229],[12.4525950443299,12.5013301942554,12.4912418714559,12.469261575004,12.4866405817219,12.4494789914028,12.4933554068883,12.4530156754157,12.4688976349703,12.4704433073422],["I Centro Storico","I Centro Storico","I Centro Storico","I Centro Storico","I Centro Storico","I Centro Storico","I Centro Storico","I Centro Storico","I Centro Storico","I Centro Storico"],["$58.00","$50.00","$150.00","$96.00","$89.00","$120.00","$125.00","$90.00","$179.00","$69.00"],[2,1,2,2,2,2,3,4,4,5],["Private room","Private room","Private room","Private room","Private room","Private room","Private room","Private room","Entire home/apt","Entire home/apt"],["Bed &amp; Breakfast","Bed &amp; Breakfast","Apartment","House","Bed &amp; Breakfast","Apartment","Apartment","Bed &amp; Breakfast","Apartment","Apartment"],["Real Bed","Real Bed","Real Bed","Real Bed","Real Bed","Real Bed","Real Bed","Real Bed","Real Bed","Real Bed"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>latitude<\/th>\n      <th>longitude<\/th>\n      <th>neighbourhood_cleansed<\/th>\n      <th>price<\/th>\n      <th>accommodates<\/th>\n      <th>room_type<\/th>\n      <th>property_type<\/th>\n      <th>bed_type<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-
-
+```
+##    latitude longitude neighbourhood_cleansed   price accommodates
+## 1  41.92104  12.45260       I Centro Storico  $58.00            2
+## 2  41.89132  12.50133       I Centro Storico  $50.00            1
+## 3  41.90397  12.49124       I Centro Storico $150.00            2
+## 4  41.89091  12.46926       I Centro Storico  $96.00            2
+## 5  41.90378  12.48664       I Centro Storico  $89.00            2
+## 6  41.91370  12.44948       I Centro Storico $120.00            2
+## 7  41.90360  12.49336       I Centro Storico $125.00            3
+## 8  41.90971  12.45302       I Centro Storico  $90.00            4
+## 9  41.89598  12.46890       I Centro Storico $179.00            4
+## 10 41.88906  12.47044       I Centro Storico  $69.00            5
+##          room_type   property_type bed_type
+## 1     Private room Bed & Breakfast Real Bed
+## 2     Private room Bed & Breakfast Real Bed
+## 3     Private room       Apartment Real Bed
+## 4     Private room           House Real Bed
+## 5     Private room Bed & Breakfast Real Bed
+## 6     Private room       Apartment Real Bed
+## 7     Private room       Apartment Real Bed
+## 8     Private room Bed & Breakfast Real Bed
+## 9  Entire home/apt       Apartment Real Bed
+## 10 Entire home/apt       Apartment Real Bed
+```
 
 
 ###Data Cleaning of variables
@@ -240,7 +221,6 @@ sum(is.na(listings_sub))
 
 We see that there are no null values present for any variable
 
-&nbsp;
 
 
 **Price being an important variable in our analysis, performing intial analysis and manipulation on the variable**
@@ -280,13 +260,8 @@ summary(listings_sub$price)
 ##     1.0   151.0   304.0   249.5   354.0   410.0
 ```
 
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
 
-
-## Exploratory Data Analysis {.tabset .tabset-fade}
+## Exploratory Data Analysis 
 
 ### By Listings
 
@@ -359,7 +334,6 @@ listings_sub %>%
 
 Interestingly this location has a pool and is located close to the vatican. To check the url of this location, click [here](https://www.airbnb.com/rooms/12145062)
 
-&nbsp;
 
 **Listing out the neighbourhoods which lie within the 25 and 75 percentile of the price range**
 
@@ -389,9 +363,6 @@ listings_sub %>%
 ## 15     V Prenestino/Centocelle
 ```
 
-&nbsp;
-
-
 
 **Categorising the variable price for better understanding**
  
@@ -411,18 +382,19 @@ listings_sub %>%
 
 
 ```r
-datatable( listings_sub %>% 
+listings_sub %>% 
    group_by(price_cat) %>% 
-   summarise(count=n()))
+   summarise(count=n())
 ```
 
-<!--html_preserve--><div id="htmlwidget-b6c5835c32ff24459972" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b6c5835c32ff24459972">{"x":{"filter":"none","data":[["1","2","3"],["affordable","moderate","expensive"],[6327,13309,5639]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>price_cat<\/th>\n      <th>count<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
+```
+## # A tibble: 3 x 2
+##   price_cat  count
+##   <fct>      <int>
+## 1 affordable  6327
+## 2 moderate   13309
+## 3 expensive   5639
+```
  
  
  
@@ -436,7 +408,6 @@ datatable( listings_sub %>%
    filter(price_cat == "affordable")
 ```
 
-&nbsp;
 
 **Categorising accommodation into 3 types**
 
@@ -450,7 +421,7 @@ affordable.rentals$accommodation_cat <- cut(affordable.rentals$accommodates, c(0
                                    labels = c("single", "family", "group"))
 ```
 
-&nbsp;
+
 
 **Grouping the average prce by accommodation and room type**
 
@@ -490,7 +461,6 @@ grid.arrange(plot1, plot2, ncol=2)
 
 It can be seen that the most priced listings are for *Single* and *Shared Room*. These are mostly hostels and dormitories.
 
-&nbsp;
 
 **Grouping the average price by property type**
 
@@ -514,7 +484,7 @@ It can be seen that the most priced listings are for *Single* and *Shared Room*.
  
 It can be seen that Bungalows are the most priced proerty types in Rome!
 
-&nbsp;
+
 
 **Grouping the average price by bed type**
 
@@ -536,11 +506,6 @@ It can be seen that Bungalows are the most priced proerty types in Rome!
 
 ![](AirBnB_Analysis_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
 
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-
 
 ### Affordable listings for family
 
@@ -555,7 +520,6 @@ family.affordable <- affordable.rentals %>%
   filter(accommodation_cat =="family")
 ```
 
-&nbsp;
 
 
 **Counting and mapping the locations which accommodate families according to room type**
@@ -572,27 +536,32 @@ locations
 ![](AirBnB_Analysis_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
 
 ```r
-datatable(family.affordable %>% 
+family.affordable %>% 
    group_by(room_type) %>% 
    select(room_type) %>% 
-   summarise(count = n()))
+   summarise(count = n())
 ```
 
-<!--html_preserve--><div id="htmlwidget-f5e4641e08f427b54ee2" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f5e4641e08f427b54ee2">{"x":{"filter":"none","data":[["1","2","3"],["Entire home/apt","Private room","Shared room"],[2256,1159,37]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>room_type<\/th>\n      <th>count<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+```
+## # A tibble: 3 x 2
+##   room_type       count
+##   <fct>           <int>
+## 1 Entire home/apt  2256
+## 2 Private room     1159
+## 3 Shared room        37
+```
 
 As can be seen from the map and the count, most of the listing are type *Entire home/apt* and *Private Rooms*. Only 37 of the lisings are of type shared, this is expected as families would would prefer private rooms while travelling.
 
-&nbsp;
 
 **Average price of the room types**
 
 
 ```r
-(family.affordable %>% 
+family.affordable %>% 
    group_by(room_type) %>%
    summarise(AveragePrice=round(mean(price), 2)) %>% 
-   arrange(AveragePrice))
+   arrange(AveragePrice)
 ```
 
 ```
@@ -605,7 +574,6 @@ As can be seen from the map and the count, most of the listing are type *Entire 
 ```
 
 
-&nbsp;
 
 **Counting and mapping the locations which accommodate families according to bed type**
 
@@ -619,58 +587,82 @@ locations
 ![](AirBnB_Analysis_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
 
 ```r
-datatable(family.affordable %>% 
+family.affordable %>% 
    group_by(bed_type) %>% 
    select(bed_type) %>% 
-   summarise(count = n()))
+   summarise(count = n())
 ```
 
-<!--html_preserve--><div id="htmlwidget-27594a49c2d28f7b31f0" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-27594a49c2d28f7b31f0">{"x":{"filter":"none","data":[["1","2","3","4"],["Couch","Futon","Pull-out Sofa","Real Bed"],[1,9,46,3396]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>bed_type<\/th>\n      <th>count<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+```
+## # A tibble: 4 x 2
+##   bed_type      count
+##   <fct>         <int>
+## 1 Couch             1
+## 2 Futon             9
+## 3 Pull-out Sofa    46
+## 4 Real Bed       3396
+```
 
 
 
 As expected, most listings that accommodate families have bed type of *Real Bed*. Nothing new here!
-
-&nbsp;
 
 
 **The affordable neighbourhoods which have the most listings for a family accommodation**
 
 
 ```r
-datatable(family.affordable %>% 
+family.affordable %>% 
   group_by(neighbourhood_cleansed) %>% 
   select(neighbourhood_cleansed) %>% 
    summarise(count = n())%>%
    arrange(desc(count)) %>%
-   top_n(5))
+   top_n(5)
 ```
 
-<!--html_preserve--><div id="htmlwidget-63daba5c65628e01cb56" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-63daba5c65628e01cb56">{"x":{"filter":"none","data":[["1","2","3","4","5"],["I Centro Storico","II Parioli/Nomentano","XIII Aurelia","VII San Giovanni/CinecittÃ ","XII Monte Verde"],[2494,194,130,102,91]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>neighbourhood_cleansed<\/th>\n      <th>count<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+```
+## # A tibble: 5 x 2
+##   neighbourhood_cleansed      count
+##   <fct>                       <int>
+## 1 I Centro Storico             2494
+## 2 II Parioli/Nomentano          194
+## 3 XIII Aurelia                  130
+## 4 VII San Giovanni/CinecittÃ    102
+## 5 XII Monte Verde                91
+```
 
 
-&nbsp;
 
 **The affordable neighbourhoods average price for a family accommodation**
 
 
 ```r
-datatable(family.affordable %>% 
+family.affordable %>% 
   group_by(neighbourhood_cleansed) %>% 
    summarise(AveragePrice=round(mean(price), 2)) %>% 
-   arrange(AveragePrice))
+   arrange(AveragePrice)
 ```
 
-<!--html_preserve--><div id="htmlwidget-f611f1aa6a76b4735d0c" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f611f1aa6a76b4735d0c">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["X Ostia/Acilia","IX Eur","XIII Aurelia","XII Monte Verde","I Centro Storico","XV Cassia/Flaminia","II Parioli/Nomentano","VII San Giovanni/CinecittÃ ","XIV Monte Mario","III Monte Sacro","VIII Appia Antica","XI Arvalia/Portuense","VI Roma delle Torri","IV Tiburtina","V Prenestino/Centocelle"],[34.45,39.72,40.49,41.3,41.34,42.43,47.44,57.61,59.73,61.72,67.26,72.12,83.08,89.93,102.1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>neighbourhood_cleansed<\/th>\n      <th>AveragePrice<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-
-
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
+```
+## # A tibble: 15 x 2
+##    neighbourhood_cleansed      AveragePrice
+##    <fct>                              <dbl>
+##  1 X Ostia/Acilia                      34.4
+##  2 IX Eur                              39.7
+##  3 XIII Aurelia                        40.5
+##  4 XII Monte Verde                     41.3
+##  5 I Centro Storico                    41.3
+##  6 XV Cassia/Flaminia                  42.4
+##  7 II Parioli/Nomentano                47.4
+##  8 VII San Giovanni/CinecittÃ          57.6
+##  9 XIV Monte Mario                     59.7
+## 10 III Monte Sacro                     61.7
+## 11 VIII Appia Antica                   67.3
+## 12 XI Arvalia/Portuense                72.1
+## 13 VI Roma delle Torri                 83.1
+## 14 IV Tiburtina                        89.9
+## 15 V Prenestino/Centocelle            102
+```
 
 
 ### Affordable listings for a single person
@@ -687,7 +679,6 @@ single.affordable <- affordable.rentals %>%
   filter(accommodation_cat == "single")
 ```
 
-&nbsp;
 
 **Counting and mapping the locations which accommodate singles according to room type**
 
@@ -701,33 +692,44 @@ locations
 ![](AirBnB_Analysis_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
 
 ```r
-datatable(single.affordable %>% 
+single.affordable %>% 
    group_by(room_type) %>% 
    select(room_type) %>% 
-   summarise(count = n()))
+   summarise(count = n())
 ```
 
-<!--html_preserve--><div id="htmlwidget-7d3b39b3387a0b1d6a89" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7d3b39b3387a0b1d6a89">{"x":{"filter":"none","data":[["1","2","3"],["Entire home/apt","Private room","Shared room"],[7,136,37]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>room_type<\/th>\n      <th>count<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+```
+## # A tibble: 3 x 2
+##   room_type       count
+##   <fct>           <int>
+## 1 Entire home/apt     7
+## 2 Private room      136
+## 3 Shared room        37
+```
 
 For singles also it seems that *Private Rooms* are the most listed!
 
-&nbsp;
+
 
 **Average price of the room types**
 
 
 ```r
-datatable(single.affordable %>% 
+single.affordable %>% 
    group_by(room_type) %>%
    summarise(AveragePrice=round(mean(price), 2)) %>% 
-   arrange(AveragePrice))
+   arrange(AveragePrice)
 ```
 
-<!--html_preserve--><div id="htmlwidget-957552149e8b18afe24d" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-957552149e8b18afe24d">{"x":{"filter":"none","data":[["1","2","3"],["Entire home/apt","Shared room","Private room"],[60.57,83.84,99.48]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>room_type<\/th>\n      <th>AveragePrice<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+```
+## # A tibble: 3 x 2
+##   room_type       AveragePrice
+##   <fct>                  <dbl>
+## 1 Entire home/apt         60.6
+## 2 Shared room             83.8
+## 3 Private room            99.5
+```
 
-&nbsp;
 
 **Counting and mapping the locations which accommodate singles according to bed type**
 
@@ -741,59 +743,84 @@ locations
 ![](AirBnB_Analysis_files/figure-html/unnamed-chunk-31-1.png)<!-- -->
 
 ```r
-datatable(single.affordable %>% 
+single.affordable %>% 
    group_by(bed_type) %>% 
    select(bed_type) %>% 
-   summarise(count = n()))
+   summarise(count = n())
 ```
 
-<!--html_preserve--><div id="htmlwidget-dd25ab1daa1d106f001e" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-dd25ab1daa1d106f001e">{"x":{"filter":"none","data":[["1","2","3"],["Airbed","Pull-out Sofa","Real Bed"],[2,6,172]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>bed_type<\/th>\n      <th>count<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+```
+## # A tibble: 3 x 2
+##   bed_type      count
+##   <fct>         <int>
+## 1 Airbed            2
+## 2 Pull-out Sofa     6
+## 3 Real Bed        172
+```
 
 
 
-
-&nbsp;
 
 **The affordable neighbourhoods which have the most listings for a family accommodation**
 
 
 ```r
-datatable(single.affordable %>% 
+single.affordable %>% 
   group_by(neighbourhood_cleansed) %>% 
   select(neighbourhood_cleansed) %>% 
    summarise(count = n())%>%
    arrange(desc(count)) %>%
-   top_n(5))
+   top_n(5)
 ```
 
-<!--html_preserve--><div id="htmlwidget-fd94cf039ffcd36dcbc7" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fd94cf039ffcd36dcbc7">{"x":{"filter":"none","data":[["1","2","3","4","5"],["VII San Giovanni/CinecittÃ ","I Centro Storico","V Prenestino/Centocelle","II Parioli/Nomentano","IV Tiburtina"],[32,28,28,18,13]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>neighbourhood_cleansed<\/th>\n      <th>count<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+```
+## # A tibble: 5 x 2
+##   neighbourhood_cleansed      count
+##   <fct>                       <int>
+## 1 VII San Giovanni/CinecittÃ     32
+## 2 I Centro Storico               28
+## 3 V Prenestino/Centocelle        28
+## 4 II Parioli/Nomentano           18
+## 5 IV Tiburtina                   13
+```
 
 
 It can be seen that the neighbourhoods of *VII San Giovanni/CinecittA* and *I Centro Storico* are the most listed neighbourhoods!
 
-&nbsp;
+
 
 **The affordable neighbourhoods average price for a single accommodation**
 
 
 ```r
-datatable(single.affordable %>% 
+single.affordable %>% 
   group_by(neighbourhood_cleansed) %>% 
    summarise(AveragePrice=round(mean(price), 2)) %>% 
-   arrange(AveragePrice))
+   arrange(AveragePrice)
 ```
 
-<!--html_preserve--><div id="htmlwidget-9d182096680f8bcd5c63" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9d182096680f8bcd5c63">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["XIII Aurelia","I Centro Storico","XIV Monte Mario","VI Roma delle Torri","III Monte Sacro","VII San Giovanni/CinecittÃ ","IV Tiburtina","II Parioli/Nomentano","V Prenestino/Centocelle","XV Cassia/Flaminia","XI Arvalia/Portuense","X Ostia/Acilia","XII Monte Verde","VIII Appia Antica","IX Eur"],[75.71,76.96,82.5,86.42,93,95.25,95.38,97.56,104,106.5,107.75,111.5,115,123.6,126]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>neighbourhood_cleansed<\/th>\n      <th>AveragePrice<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+```
+## # A tibble: 15 x 2
+##    neighbourhood_cleansed      AveragePrice
+##    <fct>                              <dbl>
+##  1 XIII Aurelia                        75.7
+##  2 I Centro Storico                    77.0
+##  3 XIV Monte Mario                     82.5
+##  4 VI Roma delle Torri                 86.4
+##  5 III Monte Sacro                     93.0
+##  6 VII San Giovanni/CinecittÃ          95.2
+##  7 IV Tiburtina                        95.4
+##  8 II Parioli/Nomentano                97.6
+##  9 V Prenestino/Centocelle            104  
+## 10 XV Cassia/Flaminia                 106  
+## 11 XI Arvalia/Portuense               108  
+## 12 X Ostia/Acilia                     112  
+## 13 XII Monte Verde                    115  
+## 14 VIII Appia Antica                  124  
+## 15 IX Eur                             126
+```
 
 
-
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
 
 
 ## Summary {.tabset .tabset-fade}
@@ -813,10 +840,3 @@ The following have been the main insights from this analysis:
  
  
 Futher analysis can be done by looking at the varibles which impact the proce of the listings and creating  model to predict the price of locations on the basis of amenities offered.
-
-
-
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
